@@ -39,7 +39,7 @@ public class OrderUpdate {
 
     private String commissionAsset;
 
-    private Long commissionAmount;
+    private BigDecimal commissionAmount;
 
     private Long orderTradeTime;
 
@@ -183,11 +183,11 @@ public class OrderUpdate {
         this.commissionAsset = commissionAsset;
     }
 
-    public Long getCommissionAmount() {
+    public BigDecimal getCommissionAmount() {
         return commissionAmount;
     }
 
-    public void setCommissionAmount(Long commissionAmount) {
+    public void setCommissionAmount(BigDecimal commissionAmount) {
         this.commissionAmount = commissionAmount;
     }
 
