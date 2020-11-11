@@ -4,7 +4,7 @@
 
     <groupId>com.binance.sdk</groupId>
     <artifactId>binance-client</artifactId>
-    <version>1.0.8-SNAPSHOT</version>
+    <version>1.0.8-MDVX-SNAPSHOT</version>
 
     <properties>
         <java.version>1.8</java.version>
