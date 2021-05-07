@@ -98,6 +98,30 @@ public interface SyncRequestClient {
     List<Candlestick> getCandlestick(String symbol, CandlestickInterval interval, Long startTime, Long endTime, Integer limit);
 
     /**
+     * Get Kline/candlestick bars for a specific contract type.
+     *
+     * @return Kline/candlestick bars for a specific contract type.
+     */
+    List<Candlestick> getContinuousCandlesticks(String pair, ContractType contractType, CandlestickInterval interval, Long startTime,
+                        Long endTime, Integer limit);
+
+    /**
+     * Get Kline/candlestick bars for the index price of a pair.
+     *
+     * @return Kline/candlestick bars for the index price of a pair.
+     */
+    List<Candlestick> getIndexPriceCandlesticks(String pair, CandlestickInterval interval, Long startTime,
+                                                Long endTime, Integer limit);
+
+    /**
+     * Get Kline/candlestick bars for the mark price of a symbol.
+     *
+     * @return Kline/candlestick bars for the mark price of a symbol.
+     */
+    List<Candlestick> getMarkPriceCandlesticks(String pair, CandlestickInterval interval, Long startTime,
+                                                Long endTime, Integer limit);
+
+    /**
      * Get mark price for a symbol.
      *
      * @return Mark price for a symbol.
@@ -137,7 +161,7 @@ public interface SyncRequestClient {
      *
      * @return All liquidation orders.
      */
-    List<LiquidationOrder> getLiquidationOrders(String symbol, Long startTime, Long endTime, Integer limit);
+    List<LiquidationOrder> getLiquidationOrders(String symbol, AutoCloseType type, Long startTime, Long endTime, Integer limit);
 
     /**
      * Place new orders
@@ -152,8 +176,9 @@ public interface SyncRequestClient {
      * @return Order.
      */
     Order postOrder(String symbol, OrderSide side, PositionSide positionSide, OrderType orderType,
-            TimeInForce timeInForce, String quantity, String price, String reduceOnly,
-            String newClientOrderId, String stopPrice, WorkingType workingType, NewOrderRespType newOrderRespType);
+                    TimeInForce timeInForce, String quantity, String price, String reduceOnly,
+                    String newClientOrderId, String stopPrice, String closePosition, String activationPrice,
+                    String callbackRate, WorkingType workingType, String priceProtect, NewOrderRespType newOrderRespType);
 
     /**
      * Cancel an active order.
@@ -181,7 +206,7 @@ public interface SyncRequestClient {
      *
      * @return ResponseResult.
      */
-    ResponseResult changePositionSide(boolean dual);
+    ResponseResult changePositionSide(String dual);
 
     /**
      * Change margin type (ISOLATED, CROSSED)
@@ -189,7 +214,7 @@ public interface SyncRequestClient {
      * @param marginType
      * @return
      */
-    ResponseResult changeMarginType(String symbolName, String marginType);
+    ResponseResult changeMarginType(String symbolName, MarginType marginType);
 
     /**
      * add isolated position margin
@@ -227,7 +252,14 @@ public interface SyncRequestClient {
     Order getOrder(String symbol, Long orderId, String origClientOrderId);
 
     /**
-     * Get all open orders on a symbol. Careful when accessing this with no symbol.
+     * Get all open order on a symbol.
+     *
+     * @return Open order.
+     */
+    Order getOpenOrder(String symbol, Long orderId, String origClientOrderId);
+
+    /**
+     * Get current open order on a symbol. Careful when accessing this with no symbol.
      *
      * @return Open orders.
      */
@@ -266,7 +298,7 @@ public interface SyncRequestClient {
      *
      * @return Position.
      */
-    List<PositionRisk> getPositionRisk();
+    List<PositionRisk> getPositionRisk(String symbol);
 
     /**
      * Get trades for a specific account and symbol.
@@ -304,38 +336,52 @@ public interface SyncRequestClient {
     String closeUserDataStream(String listenKey);
 
     /**
+     * Get present open interest of a specific symbol.
+     *
+     * @return open interest of a specific symbol.
+     */
+    OpenInterest getOpenInterest(String symbol);
+
+    /**
      * Open Interest Stat (MARKET DATA)
      *
      * @return Open Interest Stat.
      */
-    List<OpenInterestStat> getOpenInterestStat(String symbol, PeriodType period, Long startTime, Long endTime, Integer limit);
+    List<OpenInterestStat> getOpenInterestStat(String symbol, PeriodType period, Long startTime, Long endTime, Long limit);
 
     /**
      * Top Trader Long/Short Ratio (Accounts) (MARKET DATA)
      *
      * @return Top Trader Long/Short Ratio (Accounts).
      */
-    List<CommonLongShortRatio> getTopTraderAccountRatio(String symbol, PeriodType period, Long startTime, Long endTime, Integer limit);
+    List<CommonLongShortRatio> getTopTraderAccountRatio(String symbol, PeriodType period, Long startTime, Long endTime, Long limit);
 
     /**
      * Top Trader Long/Short Ratio (Positions) (MARKET DATA)
      *
      * @return Top Trader Long/Short Ratio (Positions).
      */
-    List<CommonLongShortRatio> getTopTraderPositionRatio(String symbol, PeriodType period, Long startTime, Long endTime, Integer limit);
+    List<CommonLongShortRatio> getTopTraderPositionRatio(String symbol, PeriodType period, Long startTime, Long endTime, Long limit);
 
     /**
      * Long/Short Ratio (MARKET DATA)
      *
      * @return global Long/Short Ratio. 
      */
-    List<CommonLongShortRatio> getGlobalAccountRatio(String symbol, PeriodType period, Long startTime, Long endTime, Integer limit);
+    List<CommonLongShortRatio> getGlobalAccountRatio(String symbol, PeriodType period, Long startTime, Long endTime, Long limit);
 
     /**
      * Taker Long/Short Ratio (MARKET DATA)
      *
      * @return Taker Long/Short Ratio. 
      */
-    List<TakerLongShortStat> getTakerLongShortRatio(String symbol, PeriodType period, Long startTime, Long endTime, Integer limit);
+    List<TakerLongShortStat> getTakerLongShortRatio(String symbol, PeriodType period, Long startTime, Long endTime, Long limit);
+
+    /**
+     * Cancel all open orders of the specified symbol at the end of the specified countdown.
+     *
+     * @return Ack.
+     */
+    JSONObject autoCancelAllOrders(String symbol, Long countdownTime);
 
 }

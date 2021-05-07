@@ -39,7 +39,7 @@ public class OrderUpdate {
 
     private String commissionAsset;
 
-    private Long commissionAmount;
+    private BigDecimal commissionAmount;
 
     private Long orderTradeTime;
 
@@ -54,6 +54,18 @@ public class OrderUpdate {
     private Boolean isReduceOnly;
 
     private String workingType;
+
+    private String originalOrderType;
+
+    private String positionSide;
+
+    private Boolean closeAll;
+
+    private BigDecimal activationPrice;
+
+    private BigDecimal callbackRate;
+
+    private BigDecimal realizedProfit;
 
     public String getSymbol() {
         return symbol;
@@ -183,11 +195,11 @@ public class OrderUpdate {
         this.commissionAsset = commissionAsset;
     }
 
-    public Long getCommissionAmount() {
+    public BigDecimal getCommissionAmount() {
         return commissionAmount;
     }
 
-    public void setCommissionAmount(Long commissionAmount) {
+    public void setCommissionAmount(BigDecimal commissionAmount) {
         this.commissionAmount = commissionAmount;
     }
 
@@ -247,6 +259,70 @@ public class OrderUpdate {
         this.workingType = workingType;
     }
 
+    public Boolean getMarkerSide() {
+        return isMarkerSide;
+    }
+
+    public void setMarkerSide(Boolean markerSide) {
+        isMarkerSide = markerSide;
+    }
+
+    public Boolean getReduceOnly() {
+        return isReduceOnly;
+    }
+
+    public void setReduceOnly(Boolean reduceOnly) {
+        isReduceOnly = reduceOnly;
+    }
+
+    public String getOriginalOrderType() {
+        return originalOrderType;
+    }
+
+    public void setOriginalOrderType(String originalOrderType) {
+        this.originalOrderType = originalOrderType;
+    }
+
+    public String getPositionSide() {
+        return positionSide;
+    }
+
+    public void setPositionSide(String positionSide) {
+        this.positionSide = positionSide;
+    }
+
+    public Boolean getCloseAll() {
+        return closeAll;
+    }
+
+    public void setCloseAll(Boolean closeAll) {
+        this.closeAll = closeAll;
+    }
+
+    public BigDecimal getActivationPrice() {
+        return activationPrice;
+    }
+
+    public void setActivationPrice(BigDecimal activationPrice) {
+        this.activationPrice = activationPrice;
+    }
+
+    public BigDecimal getCallbackRate() {
+        return callbackRate;
+    }
+
+    public void setCallbackRate(BigDecimal callbackRate) {
+        this.callbackRate = callbackRate;
+    }
+
+    public BigDecimal getRealizedProfit() {
+        return realizedProfit;
+    }
+
+    public void setRealizedProfit(BigDecimal realizedProfit) {
+        this.realizedProfit = realizedProfit;
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this, BinanceApiConstants.TO_STRING_BUILDER_STYLE).append("symbol", symbol)
@@ -259,6 +335,8 @@ public class OrderUpdate {
                 .append("orderTradeTime", orderTradeTime).append("tradeID", tradeID)
                 .append("bidsNotional", bidsNotional).append("asksNotional", asksNotional)
                 .append("isMarkerSide", isMarkerSide).append("isReduceOnly", isReduceOnly)
-                .append("workingType", workingType).toString();
+                .append("workingType", workingType).append("originalOrderType", originalOrderType).append("positionSide", positionSide)
+                .append("closeAll", closeAll).append("activationPrice", activationPrice)
+                .append("callbackRate", callbackRate).append("realizedProfit", realizedProfit).toString();
     }
 }

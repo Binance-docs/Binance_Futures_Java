@@ -7,23 +7,56 @@ import java.math.BigDecimal;
 
 public class LiquidationOrder {
 
+    private Long orderId;
+
     private String symbol;
 
+    private String status;
+
+    private String clientOrderId;
+
     private BigDecimal price;
+
+    private BigDecimal averagePrice;
 
     private BigDecimal origQty;
 
     private BigDecimal executedQty;
 
-    private BigDecimal averagePrice;
+    private BigDecimal cumQuote;
+
+
 
     private String timeInForce;
 
     private String type;
 
+    private Boolean reduceOnly;
+
+    private Boolean closePosition;
+
     private String side;
 
+    private String positionSide;
+
+    private BigDecimal stopPrice;
+
+    private String workingType;
+
+    private String origType;
+
     private Long time;
+
+    private Long updateTime;
+
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     public String getSymbol() {
         return symbol;
@@ -97,11 +130,94 @@ public class LiquidationOrder {
         this.time = time;
     }
 
+    public Long getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(Long orderId) {
+        this.orderId = orderId;
+    }
+
+    public String getClientOrderId() {
+        return clientOrderId;
+    }
+
+    public void setClientOrderId(String clientOrderId) {
+        this.clientOrderId = clientOrderId;
+    }
+
+    public BigDecimal getCumQuote() {
+        return cumQuote;
+    }
+
+    public void setCumQuote(BigDecimal cumQuote) {
+        this.cumQuote = cumQuote;
+    }
+
+    public Boolean getReduceOnly() {
+        return reduceOnly;
+    }
+
+    public void setReduceOnly(Boolean reduceOnly) {
+        this.reduceOnly = reduceOnly;
+    }
+
+    public Boolean getClosePosition() {
+        return closePosition;
+    }
+
+    public void setClosePosition(Boolean closePosition) {
+        this.closePosition = closePosition;
+    }
+
+    public String getPositionSide() {
+        return positionSide;
+    }
+
+    public void setPositionSide(String positionSide) {
+        this.positionSide = positionSide;
+    }
+
+    public BigDecimal getStopPrice() {
+        return stopPrice;
+    }
+
+    public void setStopPrice(BigDecimal stopPrice) {
+        this.stopPrice = stopPrice;
+    }
+
+    public String getWorkingType() {
+        return workingType;
+    }
+
+    public void setWorkingType(String workingType) {
+        this.workingType = workingType;
+    }
+
+    public String getOrigType() {
+        return origType;
+    }
+
+    public void setOrigType(String origType) {
+        this.origType = origType;
+    }
+
+    public Long getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Long updateTime) {
+        this.updateTime = updateTime;
+    }
+
     @Override
     public String toString() {
-        return new ToStringBuilder(this, BinanceApiConstants.TO_STRING_BUILDER_STYLE).append("symbol", symbol)
-                .append("price", price).append("origQty", origQty).append("executedQty", executedQty)
-                .append("averagePrice", averagePrice).append("timeInForce", timeInForce).append("type", type)
-                .append("side", side).append("time", time).toString();
+        return new ToStringBuilder(this, BinanceApiConstants.TO_STRING_BUILDER_STYLE).append("orderId", orderId)
+                .append("symbol", symbol).append("status", status).append("clientOrderId", clientOrderId)
+                .append("price", price).append("averagePrice", averagePrice).append("origQty", origQty)
+                .append("executedQty", executedQty).append("cumQuote", cumQuote).append("timeInForce", timeInForce)
+                .append("type", type).append("reduceOnly", reduceOnly).append("closePosition", closePosition).append("side", side)
+                .append("positionSide", positionSide).append("stopPrice", stopPrice).append("workingType", workingType)
+                .append("origType", origType).append("time", time).append("updateTime", updateTime).toString();
     }
 }

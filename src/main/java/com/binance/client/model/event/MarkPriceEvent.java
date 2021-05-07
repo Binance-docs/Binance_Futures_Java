@@ -15,6 +15,10 @@ public class MarkPriceEvent {
 
     private BigDecimal markPrice;
 
+    private BigDecimal indexPrice;
+
+    private BigDecimal estimatedPrice;
+
     private BigDecimal fundingRate;
 
     private Long nextFundingTime;
@@ -67,10 +71,27 @@ public class MarkPriceEvent {
         this.nextFundingTime = nextFundingTime;
     }
 
+    public BigDecimal getIndexPrice() {
+        return indexPrice;
+    }
+
+    public void setIndexPrice(BigDecimal indexPrice) {
+        this.indexPrice = indexPrice;
+    }
+
+    public BigDecimal getEstimatedPrice() {
+        return estimatedPrice;
+    }
+
+    public void setEstimatedPrice(BigDecimal estimatedPrice) {
+        this.estimatedPrice = estimatedPrice;
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this, BinanceApiConstants.TO_STRING_BUILDER_STYLE).append("eventType", eventType)
                 .append("eventTime", eventTime).append("symbol", symbol).append("markPrice", markPrice)
+                .append("indexPrice", indexPrice).append("estimatedPrice", estimatedPrice)
                 .append("fundingRate", fundingRate).append("nextFundingTime", nextFundingTime).toString();
     }
 }

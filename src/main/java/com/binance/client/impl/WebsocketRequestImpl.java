@@ -73,6 +73,8 @@ class WebsocketRequestImpl {
             result.setEventTime(jsonWrapper.getLong("E"));
             result.setSymbol(jsonWrapper.getString("s"));
             result.setMarkPrice(jsonWrapper.getBigDecimal("p"));
+            result.setIndexPrice(jsonWrapper.getBigDecimal("i"));
+            result.setEstimatedPrice(jsonWrapper.getBigDecimal("P"));
             result.setFundingRate(jsonWrapper.getBigDecimal("r"));
             result.setNextFundingTime(jsonWrapper.getLong("T"));
             return result;
@@ -262,6 +264,8 @@ class WebsocketRequestImpl {
         request.jsonParser = (jsonWrapper) -> {
             SymbolBookTickerEvent result = new SymbolBookTickerEvent();
             result.setOrderBookUpdateId(jsonWrapper.getLong("u"));
+            result.setEventTime(jsonWrapper.getLong("E"));
+            result.setTransactionTime(jsonWrapper.getLong("T"));
             result.setSymbol(jsonWrapper.getString("s"));
             result.setBestBidPrice(jsonWrapper.getBigDecimal("b"));
             result.setBestBidQty(jsonWrapper.getBigDecimal("B"));
@@ -284,6 +288,8 @@ class WebsocketRequestImpl {
         request.jsonParser = (jsonWrapper) -> {
             SymbolBookTickerEvent result = new SymbolBookTickerEvent();
             result.setOrderBookUpdateId(jsonWrapper.getLong("u"));
+            result.setEventTime(jsonWrapper.getLong("E"));
+            result.setTransactionTime(jsonWrapper.getLong("T"));
             result.setSymbol(jsonWrapper.getString("s"));
             result.setBestBidPrice(jsonWrapper.getBigDecimal("b"));
             result.setBestBidQty(jsonWrapper.getBigDecimal("B"));
@@ -460,7 +466,9 @@ class WebsocketRequestImpl {
             UserDataUpdateEvent result = new UserDataUpdateEvent();
             result.setEventType(jsonWrapper.getString("e"));
             result.setEventTime(jsonWrapper.getLong("E"));
-            result.setTransactionTime(jsonWrapper.getLong("T"));
+            if (jsonWrapper.containKey("T"))
+                result.setTransactionTime(jsonWrapper.getLong("T"));
+            result.setEventReasonType(jsonWrapper.getString("m"));
 
             if(jsonWrapper.getString("e").equals("ACCOUNT_UPDATE")) {
                 AccountUpdate accountUpdate = new AccountUpdate();
@@ -471,12 +479,13 @@ class WebsocketRequestImpl {
                     BalanceUpdate balance = new BalanceUpdate();
                     balance.setAsset(item.getString("a"));
                     balance.setWalletBalance(item.getBigDecimal("wb"));
+                    balance.setCrossWalletBalance(item.getBigDecimal("cw"));
                     balanceList.add(balance);
                 });
                 accountUpdate.setBalances(balanceList);
 
                 List<PositionUpdate> positionList = new LinkedList<>();
-                JsonWrapperArray datalist = jsonWrapper.getJsonObject("a").getJsonArray("B");
+                JsonWrapperArray datalist = jsonWrapper.getJsonObject("a").getJsonArray("P");
                 datalist.forEach(item -> {
                     PositionUpdate position = new PositionUpdate();
                     position.setSymbol(item.getString("s"));
@@ -484,6 +493,9 @@ class WebsocketRequestImpl {
                     position.setEntryPrice(item.getBigDecimal("ep"));
                     position.setPreFee(item.getBigDecimal("cr"));
                     position.setUnrealizedPnl(item.getBigDecimal("up"));
+                    position.setMarginType(item.getString("mt"));
+                    position.setIsolatedWallet(item.getBigDecimal("iw"));
+                    position.setPositionSide(item.getString("ps"));
                     positionList.add(position);
                 });
                 accountUpdate.setPositions(positionList);
@@ -508,8 +520,10 @@ class WebsocketRequestImpl {
                 orderUpdate.setLastFilledQty(jsondata.getBigDecimal("l"));
                 orderUpdate.setCumulativeFilledQty(jsondata.getBigDecimal("z"));
                 orderUpdate.setLastFilledPrice(jsondata.getBigDecimal("L"));
-                orderUpdate.setCommissionAsset(jsondata.getString("N"));
-                orderUpdate.setCommissionAmount(jsondata.getLong("n"));
+                //    "N":"USDT",             // Commission Asset, will not push if no commission
+                orderUpdate.setCommissionAsset(jsondata.getStringOrDefault("N", null));
+                //    "n":"0",                // Commission, will not push if no commission
+                orderUpdate.setCommissionAmount(jsondata.getBigDecimalOrDefault("n", null));
                 orderUpdate.setOrderTradeTime(jsondata.getLong("T"));
                 orderUpdate.setTradeID(jsondata.getLong("t"));
                 orderUpdate.setBidsNotional(jsondata.getBigDecimal("b"));
@@ -517,6 +531,12 @@ class WebsocketRequestImpl {
                 orderUpdate.setIsMarkerSide(jsondata.getBoolean("m"));
                 orderUpdate.setIsReduceOnly(jsondata.getBoolean("R"));
                 orderUpdate.setWorkingType(jsondata.getString("wt"));
+                orderUpdate.setOriginalOrderType(jsondata.getString("ot"));
+                orderUpdate.setPositionSide(jsondata.getString("ps"));
+                orderUpdate.setCloseAll(jsondata.getBoolean("cp"));
+                orderUpdate.setActivationPrice(jsondata.getBigDecimal("AP"));
+                orderUpdate.setCallbackRate(jsondata.getBigDecimal("cr"));
+                orderUpdate.setRealizedProfit(jsondata.getBigDecimal("rp"));
                 result.setOrderUpdate(orderUpdate); 
             }
             

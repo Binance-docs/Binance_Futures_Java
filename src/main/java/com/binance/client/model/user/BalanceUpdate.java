@@ -11,6 +11,8 @@ public class BalanceUpdate {
 
     private BigDecimal walletBalance;
 
+    private BigDecimal crossWalletBalance;
+
     public String getAsset() {
         return asset;
     }
@@ -27,9 +29,17 @@ public class BalanceUpdate {
         this.walletBalance = walletBalance;
     }
 
+    public BigDecimal getCrossWalletBalance() {
+        return crossWalletBalance;
+    }
+
+    public void setCrossWalletBalance(BigDecimal crossWalletBalance) {
+        this.crossWalletBalance = crossWalletBalance;
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this, BinanceApiConstants.TO_STRING_BUILDER_STYLE).append("asset", asset)
-                .append("walletBalance", walletBalance).toString();
+                .append("walletBalance", walletBalance).append("crossWalletBalance", crossWalletBalance).toString();
     }
 }

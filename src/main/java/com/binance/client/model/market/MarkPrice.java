@@ -11,11 +11,33 @@ public class MarkPrice {
 
     private BigDecimal markPrice;
 
+    private BigDecimal indexPrice;
+
     private BigDecimal lastFundingRate;
+
+
 
     private Long nextFundingTime;
 
+    private BigDecimal interestRate;
+
     private Long time;
+
+    public BigDecimal getIndexPrice() {
+        return indexPrice;
+    }
+
+    public void setIndexPrice(BigDecimal indexPrice) {
+        this.indexPrice = indexPrice;
+    }
+
+    public BigDecimal getInterestRate() {
+        return interestRate;
+    }
+
+    public void setInterestRate(BigDecimal interestRate) {
+        this.interestRate = interestRate;
+    }
 
     public String getSymbol() {
         return symbol;
@@ -60,7 +82,7 @@ public class MarkPrice {
     @Override
     public String toString() {
         return new ToStringBuilder(this, BinanceApiConstants.TO_STRING_BUILDER_STYLE).append("symbol", symbol)
-                .append("markPrice", markPrice).append("lastFundingRate", lastFundingRate)
-                .append("nextFundingTime", nextFundingTime).append("time", time).toString();
+                .append("markPrice", markPrice).append("indexPrice", indexPrice).append("lastFundingRate", lastFundingRate)
+                .append("nextFundingTime", nextFundingTime).append("interestRate", interestRate).append("time", time).toString();
     }
 }
