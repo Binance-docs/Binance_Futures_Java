@@ -18,8 +18,12 @@ import com.binance.client.model.enums.*;
 
 import okhttp3.Request;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 class RestApiRequestImpl {
+
+    private static final Logger log = LoggerFactory.getLogger(RestApiRequestImpl.class);
 
     private String apiKey;
     private String secretKey;
@@ -32,7 +36,7 @@ class RestApiRequestImpl {
     }
 
     private Request createRequestByGet(String address, UrlParamsBuilder builder) {
-        System.out.println(serverUrl);
+        log.debug("Request URL "+ serverUrl);
         return createRequestByGet(serverUrl, address, builder);
     }
 
@@ -42,7 +46,7 @@ class RestApiRequestImpl {
 
     private Request createRequest(String url, String address, UrlParamsBuilder builder) {
         String requestUrl = url + address;
-        System.out.print(requestUrl);
+        log.debug("Request URL "+ requestUrl);
         if (builder != null) {
             if (builder.hasPostParam()) {
                 return new Request.Builder().url(requestUrl).post(builder.buildPostBody())
