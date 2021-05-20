@@ -253,6 +253,13 @@ public interface SyncRequestClient {
      * @return Current account information.
      */
     AccountInformation getAccountInformation();
+
+    /**
+     * Get current account information V2. Added by ewmkkpe.
+     *
+     * @return Current account information V2.
+     */
+    AccountInformationV2 getAccountInformationV2();
   
     /**
      * Change initial leverage.

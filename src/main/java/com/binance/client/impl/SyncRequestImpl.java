@@ -159,7 +159,12 @@ public class SyncRequestImpl implements SyncRequestClient {
     public AccountInformation getAccountInformation() {
         return RestApiInvoker.callSync(requestImpl.getAccountInformation());
     }
-    
+
+    @Override
+    public AccountInformationV2 getAccountInformationV2() {
+        return RestApiInvoker.callSync(requestImpl.getAccountInformationV2());
+    }
+
     @Override
     public Leverage changeInitialLeverage(String symbol, Integer leverage) {
         return RestApiInvoker.callSync(requestImpl.changeInitialLeverage(symbol, leverage));
