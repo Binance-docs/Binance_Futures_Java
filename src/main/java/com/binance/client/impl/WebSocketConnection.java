@@ -1,5 +1,6 @@
 package com.binance.client.impl;
 
+import com.binance.client.SubscriptionOptions;
 import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.WebSocket;
@@ -34,17 +35,18 @@ public class WebSocketConnection extends WebSocketListener {
     private final int connectionId;
     private final boolean autoClose;
 
-    private String subscriptionUrl = BinanceApiConstants.WS_API_BASE_URL;
+    private String subscriptionUrl;
 
-    WebSocketConnection(WebsocketRequest request,
+    WebSocketConnection(WebsocketRequest request, SubscriptionOptions options,
             WebSocketWatchDog watchDog) {
-        this(request, watchDog, false);
+        this(request, options, watchDog, false);
     }
 
-    WebSocketConnection(WebsocketRequest request, WebSocketWatchDog watchDog, boolean autoClose) {
+    WebSocketConnection(WebsocketRequest request, SubscriptionOptions options, WebSocketWatchDog watchDog, boolean autoClose) {
         this.connectionId = WebSocketConnection.connectionCounter++;
         this.request = request;
         this.autoClose = autoClose;
+        this.subscriptionUrl = options.getUri();
 
         this.okhttpRequest = request.authHandler == null ? new Request.Builder().url(subscriptionUrl).build()
                 : new Request.Builder().url(subscriptionUrl).build();
@@ -97,6 +99,10 @@ public class WebSocketConnection extends WebSocketListener {
             log.error("[Sub][" + this.connectionId + "] Failed to send message");
             closeOnError();
         }
+    }
+
+    void ping() {
+        send("ping");
     }
 
     @Override
