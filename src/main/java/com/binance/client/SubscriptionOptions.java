@@ -10,7 +10,7 @@ public class SubscriptionOptions {
 
     private String uri = "wss://api.binance.pro/";
     private boolean isAutoReconnect = true;
-    private int receiveLimitMs = 60_000;
+    private int receiveLimitMs = 300_000;
     private int connectionDelayOnFailure = 15;
 
     public SubscriptionOptions(SubscriptionOptions options) {
