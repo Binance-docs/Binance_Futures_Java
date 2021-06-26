@@ -23,12 +23,10 @@ public class SubscribeUserData {
         // Close user data stream
         syncRequestClient.closeUserDataStream(listenKey);
 
-        SubscriptionClient client = SubscriptionClient.create(PrivateConfig.API_KEY, PrivateConfig.SECRET_KEY);
+        SubscriptionClient client = SubscriptionClient.create();
 
    
-        client.subscribeUserDataEvent(listenKey, ((event) -> {
-            System.out.println(event);
-        }), null);
+        client.subscribeUserDataEvent(listenKey, System.out::println, null);
 
     }
 

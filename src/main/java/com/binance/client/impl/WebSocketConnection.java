@@ -7,7 +7,6 @@ import okhttp3.WebSocketListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.binance.client.SubscriptionOptions;
 import com.binance.client.constant.BinanceApiConstants;
 import com.binance.client.exception.BinanceApiException;
 import com.binance.client.impl.utils.JsonWrapper;
@@ -37,13 +36,12 @@ public class WebSocketConnection extends WebSocketListener {
 
     private String subscriptionUrl = BinanceApiConstants.WS_API_BASE_URL;
 
-    WebSocketConnection(String apiKey, String secretKey, SubscriptionOptions options, WebsocketRequest request,
+    WebSocketConnection(WebsocketRequest request,
             WebSocketWatchDog watchDog) {
-        this(apiKey, secretKey, options, request, watchDog, false);
+        this(request, watchDog, false);
     }
 
-    WebSocketConnection(String apiKey, String secretKey, SubscriptionOptions options, WebsocketRequest request,
-            WebSocketWatchDog watchDog, boolean autoClose) {
+    WebSocketConnection(WebsocketRequest request, WebSocketWatchDog watchDog, boolean autoClose) {
         this.connectionId = WebSocketConnection.connectionCounter++;
         this.request = request;
         this.autoClose = autoClose;
@@ -157,7 +155,7 @@ public class WebSocketConnection extends WebSocketListener {
     }
 
     public void close() {
-        log.error("[Sub][" + this.connectionId + "] Closing normally");
+        log.info("[Sub][" + this.connectionId + "] Closing normally");
         webSocket.cancel();
         webSocket = null;
         watchDog.onClosedNormally(this);

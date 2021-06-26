@@ -55,6 +55,10 @@ public class OrderUpdate {
 
     private String workingType;
 
+    private BigDecimal activationPrice;
+
+    private BigDecimal callbackRate;
+
     public String getSymbol() {
         return symbol;
     }
@@ -247,6 +251,22 @@ public class OrderUpdate {
         this.workingType = workingType;
     }
 
+    public BigDecimal getActivationPrice() {
+        return activationPrice;
+    }
+
+    public void setActivationPrice(BigDecimal activationPrice) {
+        this.activationPrice = activationPrice;
+    }
+
+    public BigDecimal getCallbackRate() {
+        return callbackRate;
+    }
+
+    public void setCallbackRate(BigDecimal callbackRate) {
+        this.callbackRate = callbackRate;
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this, BinanceApiConstants.TO_STRING_BUILDER_STYLE).append("symbol", symbol)
@@ -259,6 +279,7 @@ public class OrderUpdate {
                 .append("orderTradeTime", orderTradeTime).append("tradeID", tradeID)
                 .append("bidsNotional", bidsNotional).append("asksNotional", asksNotional)
                 .append("isMarkerSide", isMarkerSide).append("isReduceOnly", isReduceOnly)
-                .append("workingType", workingType).toString();
+                .append("workingType", workingType).append("activationPrice", activationPrice)
+                .append("callbackRate", callbackRate).toString();
     }
 }

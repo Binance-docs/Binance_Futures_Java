@@ -23,7 +23,7 @@ public final class BinanceApiInternalFactory {
         return new SyncRequestImpl(requestImpl);
     }
 
-    public SubscriptionClient createSubscriptionClient(String apiKey, String secretKey, SubscriptionOptions options) {
+    public SubscriptionClient createSubscriptionClient(SubscriptionOptions options) {
         SubscriptionOptions subscriptionOptions = new SubscriptionOptions(options);
         RequestOptions requestOptions = new RequestOptions();
         try {
@@ -32,8 +32,7 @@ public final class BinanceApiInternalFactory {
         } catch (Exception e) {
 
         }
-        SubscriptionClient webSocketStreamClient = new WebSocketStreamClientImpl(apiKey, secretKey,
-                subscriptionOptions);
+        SubscriptionClient webSocketStreamClient = new WebSocketStreamClientImpl(subscriptionOptions);
         return webSocketStreamClient;
     }
 

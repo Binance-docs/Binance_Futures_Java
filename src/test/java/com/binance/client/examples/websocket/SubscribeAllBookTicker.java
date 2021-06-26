@@ -1,17 +1,14 @@
 package com.binance.client.examples.websocket;
 
 import com.binance.client.SubscriptionClient;
-import com.binance.client.examples.constants.PrivateConfig;
 
 public class SubscribeAllBookTicker {
 
     public static void main(String[] args) {
 
-        SubscriptionClient client = SubscriptionClient.create(PrivateConfig.API_KEY, PrivateConfig.SECRET_KEY);
+        SubscriptionClient client = SubscriptionClient.create();
    
-        client.subscribeAllBookTickerEvent(((event) -> {
-            System.out.println(event);
-        }), null);
+        client.subscribeAllBookTickerEvent(System.out::println, null);
 
     }
 
