@@ -76,14 +76,14 @@ public interface SubscriptionClient {
      * Subscribe candlestick event. If the candlestick is updated,
      * server will send the data to client and onReceive in callback will be called.
      *
-     * @param symbol      The symbol, like "btcusdt".
+     * @param symbols      The symbol, like "btcusdt".
      * @param interval      The candlestick interval, like "ONE_MINUTE".
      * @param callback     The implementation is required. onReceive will be called
      *                     if receive server's update.
      * @param errorHandler The error handler will be called if subscription failed
      *                     or error happen between client and Binance server.
      */
-    void subscribeCandlestickEvent(String symbol, CandlestickInterval interval,
+    void subscribeCandlestickEvent(String symbols, CandlestickInterval interval,
             SubscriptionListener<CandlestickEvent> callback, SubscriptionErrorHandler errorHandler);
 
     /**

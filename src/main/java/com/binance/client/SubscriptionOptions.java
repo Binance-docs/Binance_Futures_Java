@@ -1,5 +1,6 @@
 package com.binance.client;
 
+import com.binance.client.constant.BinanceApiConstants;
 import com.binance.client.exception.BinanceApiException;
 import java.net.URI;
 
@@ -8,16 +9,18 @@ import java.net.URI;
  */
 public class SubscriptionOptions {
 
-    private String uri = "wss://api.binance.pro/";
+    private String uri = BinanceApiConstants.WS_API_BASE_URL;
     private boolean isAutoReconnect = true;
     private int receiveLimitMs = 300_000;
     private int connectionDelayOnFailure = 15;
+    private int pingInterval = 60_000;
 
     public SubscriptionOptions(SubscriptionOptions options) {
         this.uri = options.uri;
         this.isAutoReconnect = options.isAutoReconnect;
         this.receiveLimitMs = options.receiveLimitMs;
         this.connectionDelayOnFailure = options.connectionDelayOnFailure;
+        this.pingInterval = options.pingInterval;
     }
 
     public SubscriptionOptions() {
@@ -58,6 +61,15 @@ public class SubscriptionOptions {
     }
 
     /**
+     * Specify the delay between each Ping request to keep stream alive.
+     *
+     * @param pingInterval The delay time in milliseconds.
+     */
+    public void setPingInterval(int pingInterval) {
+        this.pingInterval = pingInterval;
+    }
+
+    /**
      * When the connection lost is happening on the subscription line, specify
      * whether the client reconnect to server automatically.
      * <p>
@@ -92,4 +104,6 @@ public class SubscriptionOptions {
     public String getUri() {
         return uri;
     }
+
+    public int getPingInterval() { return this.pingInterval; }
 }

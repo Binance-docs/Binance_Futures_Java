@@ -9,25 +9,36 @@ public class PositionRisk {
 
     private BigDecimal entryPrice;
 
-    private BigDecimal leverage;
+    private String marginType;
 
-    private Double maxNotionalValue;
+    private Boolean isAutoAddMargin;
+
+    private String isolatedMargin;
+
+    private BigDecimal leverage;
 
     private BigDecimal liquidationPrice;
 
     private BigDecimal markPrice;
 
+    private Double maxNotionalValue;
+
     private BigDecimal positionAmt;
 
     private String symbol;
 
-    private String isolatedMargin;
+    private BigDecimal unrealizedProfit;
 
     private String positionSide;
 
-    private String marginType;
 
-    private BigDecimal unrealizedProfit;
+    public Boolean getAutoAddMargin() {
+        return isAutoAddMargin;
+    }
+
+    public void setAutoAddMargin(Boolean autoAddMargin) {
+        isAutoAddMargin = autoAddMargin;
+    }
 
     public BigDecimal getEntryPrice() {
         return entryPrice;
@@ -120,10 +131,11 @@ public class PositionRisk {
     @Override
     public String toString() {
         return new ToStringBuilder(this, BinanceApiConstants.TO_STRING_BUILDER_STYLE).append("entryPrice", entryPrice)
-                .append("leverage", leverage).append("maxNotionalValue", maxNotionalValue)
+                .append("marginType", marginType).append("isAutoAddMargin", isAutoAddMargin)
+                .append("isolatedMargin", isolatedMargin).append("leverage", leverage)
                 .append("liquidationPrice", liquidationPrice).append("markPrice", markPrice)
-                .append("positionAmt", positionAmt).append("symbol", symbol)
-                .append("unrealizedProfit", unrealizedProfit).append("isolatedMargin", isolatedMargin)
-                .append("positionSide", positionSide).append("marginType", marginType).toString();
+                .append("maxNotionalValue", maxNotionalValue).append("positionAmt", positionAmt)
+                .append("symbol", symbol).append("unrealizedProfit", unrealizedProfit)
+                .append("positionSide", positionSide).toString();
     }
 }

@@ -29,10 +29,15 @@ public abstract class Channels {
         return json.toJSONString();
     }
   
-    public static String candlestickChannel(String symbol, CandlestickInterval interval) {
+    public static String candlestickChannel(String symbols, CandlestickInterval interval) {
         JSONObject json = new JSONObject();
         JSONArray params = new JSONArray();
-        params.add(symbol + "@kline_" + interval);
+
+        for (String symbol: symbols.split(",")) {
+            String streamName = symbol + "@kline_" + interval;
+            params.add(streamName);
+        }
+
         json.put("params", params);
         json.put("id", System.currentTimeMillis());
         json.put("method", "SUBSCRIBE");

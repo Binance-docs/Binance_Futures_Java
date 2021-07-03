@@ -15,6 +15,8 @@ public class PriceChangeTicker {
 
     private BigDecimal weightedAvgPrice;
 
+    private BigDecimal prevClosePrice;
+
     private BigDecimal lastPrice;
 
     private BigDecimal lastQty;
@@ -38,6 +40,14 @@ public class PriceChangeTicker {
     private Long lastId;
 
     private Long count;
+
+    public BigDecimal getPrevClosePrice() {
+        return prevClosePrice;
+    }
+
+    public void setPrevClosePrice(BigDecimal prevClosePrice) {
+        this.prevClosePrice = prevClosePrice;
+    }
 
     public String getSymbol() {
         return symbol;
@@ -171,7 +181,7 @@ public class PriceChangeTicker {
     public String toString() {
         return new ToStringBuilder(this, BinanceApiConstants.TO_STRING_BUILDER_STYLE).append("symbol", symbol)
                 .append("priceChange", priceChange).append("priceChangePercent", priceChangePercent)
-                .append("weightedAvgPrice", weightedAvgPrice).append("lastPrice", lastPrice).append("lastQty", lastQty)
+                .append("weightedAvgPrice", weightedAvgPrice).append("prevClosePrice", prevClosePrice).append("lastPrice", lastPrice).append("lastQty", lastQty)
                 .append("openPrice", openPrice).append("highPrice", highPrice).append("lowPrice", lowPrice)
                 .append("volume", volume).append("quoteVolume", quoteVolume).append("openTime", openTime)
                 .append("closeTime", closeTime).append("firstId", firstId).append("lastId", lastId)

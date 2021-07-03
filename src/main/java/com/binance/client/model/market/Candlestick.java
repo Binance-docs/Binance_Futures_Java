@@ -29,8 +29,6 @@ public class Candlestick {
 
     private BigDecimal takerBuyQuoteAssetVolume;
 
-    private BigDecimal ignore;
-
     public Long getOpenTime() {
         return openTime;
     }
@@ -119,20 +117,12 @@ public class Candlestick {
         this.takerBuyQuoteAssetVolume = takerBuyQuoteAssetVolume;
     }
 
-    public BigDecimal getIgnore() {
-        return ignore;
-    }
-
-    public void setIgnore(BigDecimal ignore) {
-        this.ignore = ignore;
-    }
-
     @Override
     public String toString() {
         return new ToStringBuilder(this, BinanceApiConstants.TO_STRING_BUILDER_STYLE).append("openTime", openTime)
                 .append("open", open).append("high", high).append("low", low).append("close", close)
                 .append("volume", volume).append("closeTime", closeTime).append("quoteAssetVolume", quoteAssetVolume)
                 .append("numTrades", numTrades).append("takerBuyBaseAssetVolume", takerBuyBaseAssetVolume)
-                .append("takerBuyQuoteAssetVolume", takerBuyQuoteAssetVolume).append("ignore", ignore).toString();
+                .append("takerBuyQuoteAssetVolume", takerBuyQuoteAssetVolume).toString();
     }
 }

@@ -39,7 +39,7 @@ public class WebSocketStreamClientImpl implements SubscriptionClient {
         if (watchDog == null) {
             watchDog = new WebSocketWatchDog(options);
         }
-        WebSocketConnection connection = new WebSocketConnection(request, watchDog, autoClose);
+        WebSocketConnection connection = new WebSocketConnection(request, this.options, watchDog, autoClose);
         if (autoClose == false) {
             connections.add(connection);
         }
@@ -76,11 +76,11 @@ public class WebSocketStreamClientImpl implements SubscriptionClient {
     }
 
     @Override
-    public void subscribeCandlestickEvent(String symbol, CandlestickInterval interval,
+    public void subscribeCandlestickEvent(String symbols, CandlestickInterval interval,
             SubscriptionListener<CandlestickEvent> subscriptionListener, 
             SubscriptionErrorHandler errorHandler) {
         createConnection(
-                requestImpl.subscribeCandlestickEvent(symbol, interval, subscriptionListener, errorHandler));
+                requestImpl.subscribeCandlestickEvent(symbols, interval, subscriptionListener, errorHandler));
     }
 
     @Override

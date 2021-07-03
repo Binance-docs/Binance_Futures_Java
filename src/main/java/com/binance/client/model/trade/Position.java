@@ -7,27 +7,38 @@ import java.math.BigDecimal;
 
 public class Position {
 
-    private Boolean isolated;
-
-    private BigDecimal leverage;
+    private String symbol;
 
     private BigDecimal initialMargin;
 
     private BigDecimal maintMargin;
 
-    private BigDecimal openOrderInitialMargin;
+    private BigDecimal unrealizedProfit;
 
     private BigDecimal positionInitialMargin;
 
-    private String symbol;
+    private BigDecimal openOrderInitialMargin;
 
-    private BigDecimal unrealizedProfit;
+    private BigDecimal leverage;
+
+    private Boolean isolated;
 
     private String entryPrice;
 
     private String maxNotional;
 
     private String positionSide;
+
+    private BigDecimal positionAmt;
+
+
+    public BigDecimal getPositionAmt() {
+        return positionAmt;
+    }
+
+    public void setPositionAmt(BigDecimal positionAmt) {
+        this.positionAmt = positionAmt;
+    }
 
     public Boolean getIsolated() {
         return isolated;
@@ -120,11 +131,11 @@ public class Position {
     @Override
     public String toString() {
         return new ToStringBuilder(this, BinanceApiConstants.TO_STRING_BUILDER_STYLE)
-                .append("initialMargin", initialMargin).append("maintMargin", maintMargin)
-                .append("openOrderInitialMargin", openOrderInitialMargin)
-                .append("positionInitialMargin", positionInitialMargin).append("symbol", symbol)
-                .append("unrealizedProfit", unrealizedProfit).append("entryPrice", entryPrice)
+                .append("symbol", symbol).append("initialMargin", initialMargin).append("maintMargin", maintMargin)
+                .append("unrealizedProfit", unrealizedProfit).append("positionInitialMargin", positionInitialMargin)
+                .append("openOrderInitialMargin", openOrderInitialMargin).append("leverage", leverage)
+                .append("isolated", isolated).append("entryPrice", entryPrice)
                 .append("maxNotional", maxNotional).append("positionSide", positionSide)
-                .append("isolated", isolated).toString();
+                .append("positionAmt", positionAmt).toString();
     }
 }

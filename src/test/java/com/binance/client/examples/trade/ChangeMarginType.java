@@ -3,6 +3,7 @@ package com.binance.client.examples.trade;
 import com.binance.client.RequestOptions;
 import com.binance.client.SyncRequestClient;
 import com.binance.client.examples.constants.PrivateConfig;
+import com.binance.client.model.enums.MarginType;
 
 /**
  * @author : wangwanlu
@@ -16,6 +17,6 @@ public class ChangeMarginType {
                 options);
 
         // margin type: ISOLATED, CROSSED
-        System.out.println(syncRequestClient.changeMarginType("BTCUSDT", "ISOLATED"));
+        System.out.println(syncRequestClient.changeMarginType("BTCUSDT", MarginType.ISOLATED));
     }
 }

@@ -13,6 +13,7 @@ public enum OrderType {
     STOP_MARKET("STOP_MARKET"),
     TAKE_PROFIT("TAKE_PROFIT"),
     TAKE_PROFIT_MARKET("TAKE_PROFIT_MARKET"),
+    TRAILING_STOP_MARKET("TAKE_PROFIT_MARKET"),
     INVALID(null);
 
   private final String code;

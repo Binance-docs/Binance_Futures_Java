@@ -9,11 +9,15 @@ public class Order {
 
     private String clientOrderId;
 
+    private BigDecimal cumQty;
+
     private BigDecimal cumQuote;
 
     private BigDecimal executedQty;
 
     private Long orderId;
+
+    private BigDecimal avgPrice;
 
     private BigDecimal origQty;
 
@@ -29,15 +33,63 @@ public class Order {
 
     private BigDecimal stopPrice;
 
+    private Boolean closePosition;
+
     private String symbol;
 
     private String timeInForce;
 
     private String type;
 
+    private String origType;
+
+    private BigDecimal activatePrice;
+
+    private BigDecimal priceRate;
+
     private Long updateTime;
 
     private String workingType;
+
+    private Boolean priceProtect;
+
+    public String getOrigType() {
+        return origType;
+    }
+
+    public void setOrigType(String origType) {
+        this.origType = origType;
+    }
+
+    public BigDecimal getActivatePrice() {
+        return activatePrice;
+    }
+
+    public void setActivatePrice(BigDecimal activatePrice) {
+        this.activatePrice = activatePrice;
+    }
+
+    public BigDecimal getPriceRate() {
+        return priceRate;
+    }
+
+    public void setPriceRate(BigDecimal priceRate) {
+        this.priceRate = priceRate;
+    }
+
+    public void setPriceProtect(Boolean priceProtect) {
+        this.priceProtect = priceProtect;
+    }
+
+    public BigDecimal getCumQty() { return cumQty; }
+
+    public void setCumQty(BigDecimal cumQty) { this.cumQty = cumQty; }
+
+    public Boolean getClosePosition() { return closePosition; }
+
+    public void setClosePosition(Boolean closePosition) { this.closePosition = closePosition; }
+
+    public Boolean getPriceProtect() { return priceProtect; }
 
     public String getClientOrderId() {
         return clientOrderId;
@@ -135,6 +187,14 @@ public class Order {
         this.symbol = symbol;
     }
 
+    public BigDecimal getAvgPrice() {
+        return avgPrice;
+    }
+
+    public void setAvgPrice(BigDecimal avgPrice) {
+        this.avgPrice = avgPrice;
+    }
+
     public String getTimeInForce() {
         return timeInForce;
     }
@@ -170,10 +230,10 @@ public class Order {
     @Override
     public String toString() {
         return new ToStringBuilder(this, BinanceApiConstants.TO_STRING_BUILDER_STYLE)
-                .append("clientOrderId", clientOrderId).append("cumQuote", cumQuote).append("executedQty", executedQty)
-                .append("orderId", orderId).append("origQty", origQty).append("price", price)
+                .append("clientOrderId", clientOrderId).append("cumQty", cumQty).append("cumQuote", cumQuote).append("executedQty", executedQty)
+                .append("orderId", orderId).append("avgPrice", avgPrice).append("origQty", origQty).append("price", price)
                 .append("reduceOnly", reduceOnly).append("side", side).append("positionSide", positionSide).append("status", status)
-                .append("stopPrice", stopPrice).append("symbol", symbol).append("timeInForce", timeInForce)
-                .append("type", type).append("updateTime", updateTime).append("workingType", workingType).toString();
+                .append("stopPrice", stopPrice).append("closePosition", closePosition).append("symbol", symbol).append("timeInForce", timeInForce)
+                .append("type", type).append("updateTime", updateTime).append("priceProtect", priceProtect).append("workingType", workingType).toString();
     }
 }

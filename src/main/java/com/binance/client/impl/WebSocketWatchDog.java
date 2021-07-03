@@ -19,7 +19,9 @@ class WebSocketWatchDog {
     WebSocketWatchDog(SubscriptionOptions subscriptionOptions) {
         this.options = Objects.requireNonNull(subscriptionOptions);
         long t = 1_000;
-        ScheduledExecutorService exec = Executors.newScheduledThreadPool(1);
+        ScheduledExecutorService exec = Executors.newScheduledThreadPool(2);
+
+        // Check the connection and reconnect if needed
         exec.scheduleAtFixedRate(() -> {
             TIME_HELPER.forEach(connection -> {
                 if (connection.getState() == ConnectionState.CONNECTED) {
@@ -40,6 +42,16 @@ class WebSocketWatchDog {
                 }
             });
         }, t, t, TimeUnit.MILLISECONDS);
+
+        // Ping at regular interval to keep the websocket opened
+        exec.scheduleAtFixedRate(() -> {
+            TIME_HELPER.forEach(connection -> {
+                if (connection.getState() == ConnectionState.CONNECTED) {
+                    connection.ping();
+                }
+            });
+        }, options.getPingInterval(), options.getPingInterval(), TimeUnit.MILLISECONDS);
+
         Runtime.getRuntime().addShutdownHook(new Thread(exec::shutdown));
     }
 
@@ -49,5 +61,9 @@ class WebSocketWatchDog {
 
     void onClosedNormally(WebSocketConnection connection) {
         TIME_HELPER.remove(connection);
+    }
+
+    public SubscriptionOptions getOptions() {
+        return options;
     }
 }

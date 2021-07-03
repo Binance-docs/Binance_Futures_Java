@@ -17,6 +17,16 @@ public class SymbolOrderBook {
 
     private BigDecimal askQty;
 
+    private Long time;
+
+    public Long getTime() {
+        return time;
+    }
+
+    public void setTime(Long time) {
+        this.time = time;
+    }
+
     public String getSymbol() {
         return symbol;
     }
@@ -61,6 +71,6 @@ public class SymbolOrderBook {
     public String toString() {
         return new ToStringBuilder(this, BinanceApiConstants.TO_STRING_BUILDER_STYLE).append("symbol", symbol)
                 .append("bidPrice", bidPrice).append("bidQty", bidQty).append("askPrice", askPrice)
-                .append("askQty", askQty).toString();
+                .append("askQty", askQty).append("time", time).toString();
     }
 }

@@ -11,6 +11,8 @@ public class UserDataUpdateEvent {
 
     private Long transactionTime;
 
+    private String eventReasonType;
+
     private AccountUpdate accountUpdate;
 
     private OrderUpdate orderUpdate;
@@ -55,10 +57,18 @@ public class UserDataUpdateEvent {
         this.orderUpdate = orderUpdate;
     }
 
+    public String getEventReasonType() {
+        return eventReasonType;
+    }
+
+    public void setEventReasonType(String eventReasonType) {
+        this.eventReasonType = eventReasonType;
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this, BinanceApiConstants.TO_STRING_BUILDER_STYLE).append("eventType", eventType)
-                .append("eventTime", eventTime).append("accountUpdate", accountUpdate)
-                .append("orderUpdate", orderUpdate).toString();
+                .append("eventTime", eventTime).append("transactionTime", transactionTime).append("eventReasonType", eventReasonType)
+                .append("accountUpdate", accountUpdate).append("orderUpdate", orderUpdate).toString();
     }
 }

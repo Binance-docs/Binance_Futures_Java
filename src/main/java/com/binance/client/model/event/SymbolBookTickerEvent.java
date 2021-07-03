@@ -9,6 +9,10 @@ public class SymbolBookTickerEvent {
 
     private Long orderBookUpdateId;
 
+    private Long eventTime;
+
+    private Long transactionTime;
+
     private String symbol;
 
     private BigDecimal bestBidPrice;
@@ -67,10 +71,27 @@ public class SymbolBookTickerEvent {
         this.bestAskQty = bestAskQty;
     }
 
+    public Long getEventTime() {
+        return eventTime;
+    }
+
+    public void setEventTime(Long eventTime) {
+        this.eventTime = eventTime;
+    }
+
+    public Long getTransactionTime() {
+        return transactionTime;
+    }
+
+    public void setTransactionTime(Long transactionTime) {
+        this.transactionTime = transactionTime;
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this, BinanceApiConstants.TO_STRING_BUILDER_STYLE)
-                .append("orderBookUpdateId", orderBookUpdateId).append("symbol", symbol)
+                .append("orderBookUpdateId", orderBookUpdateId).append("eventTime", eventTime)
+                .append("transactionTime", transactionTime).append("symbol", symbol)
                 .append("bestBidPrice", bestBidPrice).append("bestBidQty", bestBidQty)
                 .append("bestAskPrice", bestAskPrice).append("bestAskQty", bestAskQty).toString();
     }

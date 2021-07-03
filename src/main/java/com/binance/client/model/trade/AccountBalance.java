@@ -7,11 +7,49 @@ import java.math.BigDecimal;
 
 public class AccountBalance {
 
+    private String accountAlias;
+
     private String asset;
 
     private BigDecimal balance;
+    private BigDecimal maxWithdrawAmount;
+    private BigDecimal crossWalletBalance;
+    private BigDecimal availableBalance;
 
-    private BigDecimal withdrawAvailable;
+
+    private BigDecimal crossUnPnl;
+
+    public String getAccountAlias() {
+        return accountAlias;
+    }
+
+    public void setAccountAlias(String accountAlias) {
+        this.accountAlias = accountAlias;
+    }
+
+    public BigDecimal getCrossWalletBalance() {
+        return crossWalletBalance;
+    }
+
+    public void setCrossWalletBalance(BigDecimal crossWalletBalance) {
+        this.crossWalletBalance = crossWalletBalance;
+    }
+
+    public BigDecimal getAvailableBalance() {
+        return availableBalance;
+    }
+
+    public void setAvailableBalance(BigDecimal availableBalance) {
+        this.availableBalance = availableBalance;
+    }
+
+    public BigDecimal getCrossUnPnl() {
+        return crossUnPnl;
+    }
+
+    public void setCrossUnPnl(BigDecimal crossUnPnl) {
+        this.crossUnPnl = crossUnPnl;
+    }
 
     public String getAsset() {
         return asset;
@@ -29,17 +67,17 @@ public class AccountBalance {
         this.balance = balance;
     }
 
-    public BigDecimal getWithdrawAvailable() {
-        return withdrawAvailable;
+    public BigDecimal getMaxWithdrawAmount() {
+        return maxWithdrawAmount;
     }
 
-    public void setWithdrawAvailable(BigDecimal withdrawAvailable) {
-        this.withdrawAvailable = withdrawAvailable;
+    public void setMaxWithdrawAmount(BigDecimal maxWithdrawAmount) {
+        this.maxWithdrawAmount = maxWithdrawAmount;
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this, BinanceApiConstants.TO_STRING_BUILDER_STYLE).append("asset", asset)
-                .append("balance", balance).append("withdrawAvailable", withdrawAvailable).toString();
+                .append("balance", balance).append("withdrawAvailable", maxWithdrawAmount).toString();
     }
 }
